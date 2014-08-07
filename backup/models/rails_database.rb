@@ -9,7 +9,7 @@
 # For more information about Backup's components, see the documentation at:
 # http://meskyanichi.github.io/backup
 #
-Model.new(:rails_database, 'Description for rails_database') do
+Model.new(:rails_database, 'Backups of the Rails Database') do
 
   ##
   # PostgreSQL [Database]
@@ -28,9 +28,8 @@ Model.new(:rails_database, 'Description for rails_database') do
   # Amazon Simple Storage Service [Storage]
   #
   store_with S3 do |s3|
-    s3.path              = "/#{RAILS_ENV}/daily/"
-    s3.bucket            = "tlq_backup_test"
-    s3.path              = "rails_database"
+    s3.path              = "/#{RAILS_ENV}/"
+    s3.bucket            = ENV['S3_BUCKET']
   end
 
   ##

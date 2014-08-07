@@ -17,7 +17,7 @@ RAILS_ENV = ENV['RAILS_ENV'] || 'development'
 # contain.
 DB_CONFIG = YAML.load(ERB.new(File.read(File.expand_path('../../config/database.yml',  __FILE__))).result)[RAILS_ENV]
 
-
+# Set defaults for S3 which can be shared across multiple backup models
 Storage::S3.defaults do |s3|
   s3.access_key_id     = ENV['AWS_ACCESS_KEY_ID']
   s3.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
