@@ -14,7 +14,8 @@ Dotenv.load
 RAILS_ENV = ENV['RAILS_ENV'] || 'development'
 
 # Load database.yml, including parsing any ERB it might
-# contain.
+# contain. Remember if you're using Mongo, this should be
+# mongoid.yml
 DB_CONFIG = YAML.load(ERB.new(File.read(File.expand_path('../../config/database.yml',  __FILE__))).result)[RAILS_ENV]
 
 # Set defaults for S3 which can be shared across multiple backup models
