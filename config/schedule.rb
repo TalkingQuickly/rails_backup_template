@@ -1,14 +1,8 @@
-# Store output in standard logging directory
-set :output, "#{path}/log/cron_log.log"
-
-# Make sure $PATH for cron jobs is the same as our
-# regular environemtn
+set :output, "#{path}/log/cron.log"
 env :PATH, ENV['PATH']
 
-# Make sure the rails environment is set
-env :RAILS_ENV, ENV['RAILS_ENV']
+job_type :backup, "cd :path/:backup_path && :environment_variable=:environment bundle exec backup perform -t :task --config_file ./config.rb :output"
 
-# Trigger our backup job every hour
-every 60.minutes, roles: [:primary]  do
-  command "cd #{path}/backup && RAILS_ENV=#{RAILS_ENV} bundle exec backup perform -t rails_database --config_file ./config.rb"
+every 1.hours do
+  backup 'rails_database', backup_path: 'backup'
 end
